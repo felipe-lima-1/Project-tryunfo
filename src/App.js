@@ -15,10 +15,27 @@ class App extends React.Component {
     isSaveButtonDisabled: true,
   };
 
+  validacao = (numero) => {
+    if (Number(numero) >= 0 && Number(numero) <= Number('90')) {
+      return true;
+    }
+  };
+
   onInputChange = ({ target }) => {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, () => {
+      const { cardName, cardDescription, cardImage,
+        cardRare, cardAttr1, cardAttr2, cardAttr3 } = this.state;
+      const soma = Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3);
+      if (cardName && cardImage && cardDescription && cardRare && cardName && soma
+        <= Number('210') && this.validacao(cardAttr1)
+      && this.validacao(cardAttr2) && this.validacao(cardAttr3)) {
+        this.setState({ isSaveButtonDisabled: false });
+      } else {
+        this.setState({ isSaveButtonDisabled: true });
+      }
+    });
   };
 
   render() {
@@ -56,3 +73,5 @@ class App extends React.Component {
 }
 
 export default App;
+
+// Ajuda da monitoria na logica

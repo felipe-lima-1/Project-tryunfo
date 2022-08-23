@@ -13,6 +13,23 @@ class App extends React.Component {
     cardRare: 'normal',
     cardTrunfo: false,
     isSaveButtonDisabled: true,
+    dados: [],
+  };
+
+  onSaveButtonClick = (element) => {
+    this.setState((estado) => ({
+      dados: [...estado.dados, element],
+    }), () => {
+      this.setState({
+        cardName: '',
+        cardDescription: '',
+        cardImage: '',
+        cardAttr1: '0',
+        cardAttr2: '0',
+        cardAttr3: '0',
+        cardRare: 'normal',
+      });
+    });
   };
 
   validacao = (numero) => {
@@ -44,7 +61,7 @@ class App extends React.Component {
       cardRare, cardTrunfo, isSaveButtonDisabled } = this.state;
     return (
       <div>
-        <h1>Tryunfo</h1>
+        <h1>My Tryunfo</h1>
         <Form
           onInputChange={ this.onInputChange }
           cardName={ cardName }
@@ -56,6 +73,7 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
+          onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card
           cardName={ cardName }
@@ -73,5 +91,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-// Ajuda da monitoria na logica

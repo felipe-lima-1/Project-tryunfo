@@ -13,12 +13,14 @@ class App extends React.Component {
     cardRare: 'normal',
     cardTrunfo: false,
     isSaveButtonDisabled: true,
+    hasTrunfo: true,
     dados: [],
   };
 
   onSaveButtonClick = (element) => {
     this.setState((estado) => ({
       dados: [...estado.dados, element],
+      hasTrunfo: false,
     }), () => {
       this.setState({
         cardName: '',
@@ -58,7 +60,7 @@ class App extends React.Component {
   render() {
     const { cardName, cardDescription, cardAttr1,
       cardAttr2, cardAttr3, cardImage,
-      cardRare, cardTrunfo, isSaveButtonDisabled } = this.state;
+      cardRare, cardTrunfo, isSaveButtonDisabled, hasTrunfo } = this.state;
     return (
       <div>
         <h1>My Tryunfo</h1>
@@ -74,6 +76,7 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onSaveButtonClick={ this.onSaveButtonClick }
+          hasTrunfo={ hasTrunfo }
         />
         <Card
           cardName={ cardName }

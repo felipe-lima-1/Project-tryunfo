@@ -13,14 +13,17 @@ class App extends React.Component {
     cardRare: 'normal',
     cardTrunfo: false,
     isSaveButtonDisabled: true,
-    hasTrunfo: true,
+    hasTrunfo: false,
     dados: [],
   };
 
   onSaveButtonClick = (element) => {
+    const { cardTrunfo } = this.state;
+    if (cardTrunfo) {
+      this.setState({ hasTrunfo: true });
+    }
     this.setState((estado) => ({
       dados: [...estado.dados, element],
-      hasTrunfo: false,
     }), () => {
       this.setState({
         cardName: '',

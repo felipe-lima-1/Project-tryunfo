@@ -2,13 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Form extends React.Component {
-  trunfoChecked = (event) => {
-    if (!event) {
-      return <p>Você já tem um Super Trunfo em seu baralho</p>;
-    }
-    return <p>Super Trunfo</p>;
-  };
-
   render() {
     const {
       cardName,
@@ -124,8 +117,7 @@ class Form extends React.Component {
         <br />
         <label htmlFor="checkbox">
           Super Trybe Trunfo
-          {this.trunfoChecked(hasTrunfo)}
-          {hasTrunfo && (
+          { hasTrunfo ? <p>Você já tem um Super Trunfo em seu baralho</p> : (
             <input
               type="checkbox"
               data-testid="trunfo-input"

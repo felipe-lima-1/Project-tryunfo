@@ -22,19 +22,22 @@ class App extends React.Component {
     if (cardTrunfo) {
       this.setState({ hasTrunfo: true });
     }
-    this.setState((estado) => ({
-      dados: [...estado.dados, element],
-    }), () => {
-      this.setState({
-        cardName: '',
-        cardDescription: '',
-        cardImage: '',
-        cardAttr1: '0',
-        cardAttr2: '0',
-        cardAttr3: '0',
-        cardRare: 'normal',
-      });
-    });
+    this.setState(
+      (estado) => ({
+        dados: [...estado.dados, element],
+      }),
+      () => {
+        this.setState({
+          cardName: '',
+          cardDescription: '',
+          cardImage: '',
+          cardAttr1: '0',
+          cardAttr2: '0',
+          cardAttr3: '0',
+          cardRare: 'normal',
+        });
+      },
+    );
   };
 
   validacao = (numero) => {
@@ -47,12 +50,27 @@ class App extends React.Component {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({ [name]: value }, () => {
-      const { cardName, cardDescription, cardImage,
-        cardRare, cardAttr1, cardAttr2, cardAttr3 } = this.state;
+      const {
+        cardName,
+        cardDescription,
+        cardImage,
+        cardRare,
+        cardAttr1,
+        cardAttr2,
+        cardAttr3,
+      } = this.state;
       const soma = Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3);
-      if (cardName && cardImage && cardDescription && cardRare && cardName && soma
-        <= Number('210') && this.validacao(cardAttr1)
-      && this.validacao(cardAttr2) && this.validacao(cardAttr3)) {
+      if (
+        cardName
+        && cardImage
+        && cardDescription
+        && cardRare
+        && cardName
+        && soma <= Number('210')
+        && this.validacao(cardAttr1)
+        && this.validacao(cardAttr2)
+        && this.validacao(cardAttr3)
+      ) {
         this.setState({ isSaveButtonDisabled: false });
       } else {
         this.setState({ isSaveButtonDisabled: true });
@@ -61,9 +79,19 @@ class App extends React.Component {
   };
 
   render() {
-    const { cardName, cardDescription, cardAttr1,
-      cardAttr2, cardAttr3, cardImage,
-      cardRare, cardTrunfo, isSaveButtonDisabled, hasTrunfo } = this.state;
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      isSaveButtonDisabled,
+      hasTrunfo,
+      dados,
+    } = this.state;
     return (
       <div>
         <h1>My Tryunfo</h1>
@@ -91,6 +119,20 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+
+        {dados.map((element) => (
+          <Card
+            key={ element.cardName }
+            cardName={ element.cardName }
+            cardDescription={ element.cardDescription }
+            cardAttr1={ element.cardAttr1 }
+            cardAttr2={ element.cardAttr2 }
+            cardAttr3={ element.cardAttr3 }
+            cardImage={ element.cardImage }
+            cardRare={ element.cardRare }
+            cardTrunfo={ element.cardTrunfo }
+          />
+        ))}
       </div>
     );
   }
